@@ -46,3 +46,16 @@ Action: Stop the pipeline and report the error.
 Status: SUCCESS
 
 All tests passed and the Docker Image was created successfully.
+flowchart TD
+    A["Developer Push"] --> B["GitHub Repository"]
+    B --> C["Build Project"]
+    C --> D["Run Test Cases"]
+    D --> E{"Tests Passed?"}
+
+    E -->|No| F["Stop Pipeline"]
+    F --> G["Show Error Report"]
+
+    E -->|Yes| H["Docker Build"]
+    H --> I["Create Docker Image"]
+    I --> J["Run Container"]
+    J --> K["Application Ready"]
