@@ -1,1 +1,29 @@
+name: Bank System CI/CD
 
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Check Project Files
+        run: |
+          test -f Dockerfile
+          test -f .dockerignore
+          test -f index.html
+
+      - name: Run Basic Tests
+        run: |
+          grep -q "Bank System" index.html
+          echo "All tests passed!"
+
+      - name: Build Docker Image
+        run: docker build -t bank-system .
